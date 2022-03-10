@@ -33,6 +33,9 @@ int waxpby (const int n, const double alpha, const double * const x, const doubl
     __m128d vectorW = _mm_add_pd(vectorYb, vectorXa);
     _mm_store_pd(w+i, vectorW);
   }
+  if (n%2 == 1){
+    w[n-1] = alpha * x[n-1] + beta * y[n-1];
+  }
   return 0;
 }
 //The loop is very inefficient because the else encapsulates the whole loop essentially
