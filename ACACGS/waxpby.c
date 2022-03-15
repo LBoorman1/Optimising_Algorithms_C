@@ -24,7 +24,7 @@ int waxpby (const int n, const double alpha, const double * const x, const doubl
   __m128d vectorB = _mm_set1_pd(beta);
   __m128d vectorA = _mm_set1_pd(alpha);
 
-  #pragma omp for
+  #pragma omp parallel for
   for(i=0; i < loopN; i += loopFactor){
     __m128d vectorX = _mm_load_pd(x+i);
     __m128d vectorY = _mm_load_pd(y+i);
