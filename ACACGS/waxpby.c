@@ -17,11 +17,16 @@
 
 int waxpby (const int n, const float alpha, const float * const x, const float beta, const float * const y, float * const w) {  
   
+  /*The whole loop is re-written into one condition that always gets hit.
+  The point here was to decrease the complexity of the code before trying
+  to make any other optimisations*/
+
   int i;
-  int loopFactor = 4;
+  int loopFactor = 4; //loop factor = 4: as there will be four floats in each vector
   int loopN = (n/loopFactor)*loopFactor;
   
-  __m128 vectorB = _mm_set1_ps(beta);
+  //set vectors for the scalar values
+  __m128 vectorB = _mm_set1_ps(beta); 
   __m128 vectorA = _mm_set1_ps(alpha);
 
   #pragma omp parallel for
@@ -33,9 +38,9 @@ int waxpby (const int n, const float alpha, const float * const x, const float b
     __m128 vectorW = _mm_add_ps(vectorYb, vectorXa);
     _mm_store_ps(w+i, vectorW);
   }
+  //loop cleanup
   for(i=loopN; i < n; i++){
     w[i] = alpha * x[i] + beta * y[i];
   }
   return 0;
 }
-//The loop is very inefficient because the else encapsulates the whole loop essentially
