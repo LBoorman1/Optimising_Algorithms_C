@@ -15,26 +15,26 @@
  */
 
 
-int waxpby (const int n, const double alpha, const double * const x, const double beta, const double * const y, double * const w) {  
+int waxpby (const int n, const float alpha, const float * const x, const float beta, const float * const y, float * const w) {  
   
   int i;
-  int loopFactor = 2;
+  int loopFactor = 4;
   int loopN = (n/loopFactor)*loopFactor;
   
-  __m128d vectorB = _mm_set1_pd(beta);
-  __m128d vectorA = _mm_set1_pd(alpha);
+  __m128 vectorB = _mm_set1_ps(beta);
+  __m128 vectorA = _mm_set1_ps(alpha);
 
   #pragma omp parallel for
   for(i=0; i < loopN; i += loopFactor){
-    __m128d vectorX = _mm_load_pd(x+i);
-    __m128d vectorY = _mm_load_pd(y+i);
-    __m128d vectorXa = _mm_mul_pd(vectorX, vectorA);
-    __m128d vectorYb = _mm_mul_pd(vectorY, vectorB);
-    __m128d vectorW = _mm_add_pd(vectorYb, vectorXa);
-    _mm_store_pd(w+i, vectorW);
+    __m128 vectorX = _mm_load_ps(x+i);
+    __m128 vectorY = _mm_load_ps(y+i);
+    __m128 vectorXa = _mm_mul_ps(vectorX, vectorA);
+    __m128 vectorYb = _mm_mul_ps(vectorY, vectorB);
+    __m128 vectorW = _mm_add_ps(vectorYb, vectorXa);
+    _mm_store_ps(w+i, vectorW);
   }
-  if (n%2 == 1){
-    w[n-1] = alpha * x[n-1] + beta * y[n-1];
+  for(; i < n; i++){
+    w[i] = alpha * x[i] + beta * y[i];
   }
   return 0;
 }

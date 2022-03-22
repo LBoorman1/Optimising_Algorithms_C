@@ -24,7 +24,6 @@ echo "#!/bin/sh
 #SBATCH --account=cs257users
 #SBATCH --cpus-per-task=6
 #SBATCH --time=10:00
-#SBATCH --mail-type=END,FAIL,TIME_LIMIT_80
 #SBATCH --output=%j/cs257_output_%j.out
 #SBATCH --error=%j/cs257_error_%j.err
 echo ===== ENVIRONMENT =====
