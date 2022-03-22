@@ -2,5 +2,5 @@
 #define SPARSEMV_H
 #include "mesh.h"
 
-int sparsemv(struct mesh *A, const double * const x, double * const y);
+int sparsemv(struct mesh *A, const float * const x, float * const y);
 #endif
