@@ -18,6 +18,7 @@ int sparsemv(struct mesh *A, const float * const x, float * const y)
 
   const int nrow = (const int) A->local_nrow;
 
+  #pragma omp parallel for
   for (int i=0; i< nrow; i++) {
       float sum = 0.0;
       const float * const cur_vals = (const float * const) A->ptr_to_vals_in_row[i];
