@@ -25,7 +25,7 @@ int sparsemv(struct mesh *A, const double * const x, double * const y)
 
   const int nrow = (const int) A->local_nrow; //number of rows in the A matrix
 
-  #pragma omp for
+  #pragma omp parallel for
   for (int i=0; i< nrow; i++) {
       double sum = 0.0; //needs to be inside loop so it is set to 0 for every row
       const double * const cur_vals = (const double * const) A->ptr_to_vals_in_row[i]; //array of non-zero values 
