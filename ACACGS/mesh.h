@@ -18,11 +18,11 @@ struct mesh
   int size_y; //Size of mesh in y dimension
   int size_z; //Size of mesh in z dimension
   int *nnz_in_row;
-  double **ptr_to_vals_in_row;
+  float **ptr_to_vals_in_row;
   int **ptr_to_inds_in_row;
-  double **ptr_to_diags;
+  float **ptr_to_diags;
 
-  double *list_of_vals; //needed for cleaning up memory
+  float *list_of_vals; //needed for cleaning up memory
   int *list_of_inds;    //needed for cleaning up memory
 };
 

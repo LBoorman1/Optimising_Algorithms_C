@@ -9,8 +9,8 @@
  * @param result Pointer to scalar result value
  * @return int 0 if no error
  */
-int ddot (const int n, const double * const x, const double * const y, double * const result) {  
-  double local_result = 0.0;
+int ddot (const int n, const float * const x, const float * const y, float * const result) {  
+  float local_result = 0.0;
   if (y==x){
     for (int i=0; i<n; i++) {
       local_result += x[i]*x[i];

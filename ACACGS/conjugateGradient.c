@@ -28,9 +28,9 @@
  * @return int 0 if no error.
  */
 int conjugateGradient(struct mesh *A,
-          const double *const b, double *const x,
-          const int max_iter, const double tolerance, int *niters, double *normr,
-          double *times, char* siloName
+          const float *const b, float *const x,
+          const int max_iter, const float tolerance, int *niters, float *normr,
+          float *times, char* siloName
 #ifndef USING_SILO
  __attribute__((unused))
 #endif
@@ -45,13 +45,13 @@ int conjugateGradient(struct mesh *A,
   int nrow = A->local_nrow;
   int ncol = A->local_ncol;
 
-  double *r = (double *) malloc(sizeof(double) * nrow);
-  double *p = (double *) malloc(sizeof(double) * ncol); // In parallel case, A is rectangular
-  double *Ap = (double *) malloc(sizeof(double) * nrow);
+  float *r = (float *) malloc(sizeof(float) * nrow);
+  float *p = (float *) malloc(sizeof(float) * ncol); // In parallel case, A is rectangular
+  float *Ap = (float *) malloc(sizeof(float) * nrow);
 
   *normr = 0.0;
-  double rtrans = 0.0;
-  double oldrtrans = 0.0;
+  float rtrans = 0.0;
+  float oldrtrans = 0.0;
 
   int k = 0;
 
@@ -94,7 +94,7 @@ int conjugateGradient(struct mesh *A,
       TICK();
       ddot(nrow, r, r, &rtrans);
       TOCK(t1); // 2*nrow ops
-      double beta = rtrans / oldrtrans;
+      float beta = rtrans / oldrtrans;
       TICK();
       waxpby(nrow, 1.0, r, beta, p, p);
       TOCK(t2); // 2*nrow ops
@@ -110,7 +110,7 @@ int conjugateGradient(struct mesh *A,
     TICK();
     sparsemv(A, p, Ap);
     TOCK(t3); // 2*nnz ops
-    double alpha = 0.0;
+    float alpha = 0.0;
     TICK();
     ddot(nrow, p, Ap, &alpha);
     TOCK(t1); // 2*nrow ops
