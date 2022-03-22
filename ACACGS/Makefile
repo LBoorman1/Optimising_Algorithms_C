@@ -1,10 +1,6 @@
 #Setup compiler and key flags
 CC = gcc
-<<<<<<< HEAD
-CPPFLAGS = -O3 -Wall -Wextra -msse4.1 -fopenmp
-=======
 CPPFLAGS = -O3 -Wall -Wextra -fopenmp -msse4.1 -mavx
->>>>>>> 2c5f0b1c498fa2f329557a78d5b4bfa7348c798f
 LIB_PATHS = -lm
 TARGET = acacgs
 

@@ -66,8 +66,4 @@ squeue -u $( whoami ) -o "%.8i %.20j %.10T %.5M %.20R %.20e"
 
 #ENDTIME=$( squeue -o "%i %e" | grep $BATCHNO | cut -d " " -f 2 )
 
-<<<<<<< HEAD
 #echo "===== Job $BATCHNO has been submitted, should be finished by $ENDTIME ====="
-=======
-#echo "===== Job $BATCHNO has been submitted, should be finished by $ENDTIME ====="
->>>>>>> 2c5f0b1c498fa2f329557a78d5b4bfa7348c798f
