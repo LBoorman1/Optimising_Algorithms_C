@@ -28,9 +28,9 @@ int main(int argc, char *argv[])
 {
   /* Initalise values and matrix */
   struct mesh *A;
-  double *x, *b, *xexact;
+  float *x, *b, *xexact;
   int ierr = 0;
-  double times[4];
+  float times[4];
   int nx, ny, nz;
   int stencil_bool = 0;
 
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
   time_t rawtime;
   time(&rawtime);
   struct tm * ptm = localtime(&rawtime);
-  char fileName[25];
+  char fileName[72];
   sprintf(fileName,"%04d_%02d_%02d_%02d_%02d_%02d",ptm->tm_year + 1900, ptm->tm_mon+1,
     ptm->tm_mday, ptm->tm_hour, ptm->tm_min,ptm->tm_sec);
 
@@ -57,9 +57,9 @@ int main(int argc, char *argv[])
 
   /* Computation */
   int niters = 0;
-  double normr = 0.0;
+  float normr = 0.0;
   int max_iter = 150;
-  double tolerance = 0.0; // Set tolerance to zero to make all runs do max_iter iterations
+  float tolerance = 0.0; // Set tolerance to zero to make all runs do max_iter iterations
 #ifdef USING_SILO
   ierr = conjugateGradient(A, b, x, max_iter, tolerance, &niters, &normr, times, fileName);
 #else
@@ -70,13 +70,13 @@ int main(int argc, char *argv[])
     fprintf(stderr, "Error in call to CG: %d .\n", ierr);
 
   /* Generate final stats (print and if possible, save to file) */
-  double fniters = niters;
-  double fnrow = A->total_nrow;
-  double fnnz = A->total_nnz;
-  double fnops_ddot = fniters * 4 * fnrow;
-  double fnops_waxpby = fniters * 6 * fnrow;
-  double fnops_sparsemv = fniters * 2 * fnnz;
-  double fnops = fnops_ddot + fnops_waxpby + fnops_sparsemv;
+  float fniters = niters;
+  float fnrow = A->total_nrow;
+  float fnnz = A->total_nnz;
+  float fnops_ddot = fniters * 4 * fnrow;
+  float fnops_waxpby = fniters * 6 * fnrow;
+  float fnops_sparsemv = fniters * 2 * fnnz;
+  float fnops = fnops_ddot + fnops_waxpby + fnops_sparsemv;
 
 
   char finalStats[1000] = "\n===== Final Statistics =====\n";
@@ -115,7 +115,7 @@ int main(int argc, char *argv[])
   strcat(finalStats, tmpString);
 
   /* Compute difference between known exact solution and computed solution */
-  double residual = 0;
+  float residual = 0;
   if ((ierr = compute_residual(A->local_nrow, x, xexact, &residual))) {
     fprintf(stderr,"Error in call to compute_residual: %d \n", ierr);
   }

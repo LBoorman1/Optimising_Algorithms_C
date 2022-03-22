@@ -10,12 +10,12 @@
  * @param residual Pointer to scalar return value
  * @return int 0 if no error
  */
-int compute_residual(const int n, const double * const v1, const double * const v2, double * const residual)
+int compute_residual(const int n, const float * const v1, const float * const v2, float * const residual)
 {
-  double local_residual = 0.0;
+  float local_residual = 0.0;
   
   for (int i=0; i<n; i++) {
-    double diff = fabs(v1[i] - v2[i]);
+    float diff = fabs(v1[i] - v2[i]);
     if (diff > local_residual) {
       local_residual = diff;
     }

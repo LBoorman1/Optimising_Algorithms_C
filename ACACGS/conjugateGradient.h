@@ -8,7 +8,7 @@
 #include "mesh.h"
 
 int conjugateGradient(struct mesh * A,
-	  const double * const b, double * const x,
-	  const int max_iter, const double tolerance, int *niters, double *normr, double * times,
+	  const float * const b, float * const x,
+	  const int max_iter, const float tolerance, int *niters, float *normr, float * times,
 	  char* siloName);
 #endif
